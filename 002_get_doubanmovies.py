@@ -66,49 +66,52 @@ for x in range(nn):
 
 import codecs
 
-file = codecs.open('douban_movie.txt', 'w', 'utf-8-sig')
+file = codecs.open('002_get_doubanmovies.txt', 'w', 'utf-8-sig')
 
 # use bs4
 soup = BeautifulSoup(html)
 
 #本周口碑榜
 week = soup.find('div', id='ranking').find('ul', id='listCont2')
-file.write('-' * 80)
-file.write('\n')
-file.write(u"本周口碑")
-file.write('\n')
-file.write('This has ♭')
-file.write('\n')
+file.write('-' * 80 + '\n')
+file.write("本周口碑榜: \n")
 file.write(soup.find('div', id='ranking').find('ul', id='listCont2').find('li').get_text())
 for link in week.find_all('a'):
-    file.write(link.get_text())
-
-'''
+    text = link.get_text()
+    text = text.strip()
+    file.write('\t')
+    file.write(text)
+    file.write('\n')
 
 #北美票房榜影名
 week_name = soup.find('div', id='ranking').find('ul', id='listCont1')
 america = []
 for link in week_name.find_all('a'):
-    america.append(link.get_text())
+    america.append(link.get_text().strip())
 
 #票房榜的钱
 money = soup.find('div', id='ranking').find('ul', id='listCont1')
 dollar = []
 for m in money.find_all('span'):
-    dollar.append(m.get_text())
+    dollar.append(m.get_text().strip())
 m_date = dollar.pop(0)
 
 def split(num2):
-    print america[num2], dollar[num2]
+    file.write("\t")
+    file.write(america[num2])
+    file.write(", ")
+    file.write(dollar[num2])
+    file.write("\n")
 
 
-print '-' * 80
-print '北美票房榜....', m_date
+file.write("\n" + '-' * 80 + "\n")
+file.write('北美票房榜:\n\n')
+file.write(m_date)
+file.write('\n')
 
 lens = len(america)
 for num2 in range(lens):
     split(num2)
-'''
 
 file.close()
 
