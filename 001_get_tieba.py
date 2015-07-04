@@ -35,7 +35,7 @@ def getimgs(urlread):
         x = re.match(r'http[\w\/\.:_]*jpg', x).group()
         print("x = \n", x)
         tem += 1
-        print("urlretrieve(x, '%s.jpg' % tem) = \n", urlretrieve(x, "%s.jpg" % tem))
+        print("urlretrieve(x, '%s.jpg' % tem) = \n", urlretrieve(x, "001_get_tieba_%s.jpg" % tem))
     return res
 
 imgs = getimgs(str(urlread))
